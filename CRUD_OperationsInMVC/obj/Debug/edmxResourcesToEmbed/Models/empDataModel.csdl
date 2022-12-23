@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EmpDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Dep">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Emps" Relationship="Self.FK__Employees__Depar__74AE54BC" FromRole="Deps" ToRole="Emps" />
+  </EntityType>
+  <EntityType Name="Emp">
+    <Key>
+      <PropertyRef Name="EmployeeId" />
+    </Key>
+    <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DepartmentId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Dep" Relationship="Self.FK__Employees__Depar__74AE54BC" FromRole="Emps" ToRole="Deps" />
+  </EntityType>
+  <Association Name="FK__Employees__Depar__74AE54BC">
+    <End Role="Deps" Type="Self.Dep" Multiplicity="1" />
+    <End Role="Emps" Type="Self.Emp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Deps">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Emps">
+        <PropertyRef Name="DepartmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EmpDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Deps" EntityType="Self.Dep" />
+    <EntitySet Name="Emps" EntityType="Self.Emp" />
+    <AssociationSet Name="FK__Employees__Depar__74AE54BC" Association="Self.FK__Employees__Depar__74AE54BC">
+      <End Role="Deps" EntitySet="Deps" />
+      <End Role="Emps" EntitySet="Emps" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

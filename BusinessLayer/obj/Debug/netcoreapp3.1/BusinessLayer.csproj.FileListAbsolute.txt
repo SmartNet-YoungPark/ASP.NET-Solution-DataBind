@@ -1,0 +1,5 @@
+C:\Deveopments\AspDotNet\Tutorial\OnlineMarket\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.csproj.AssemblyReference.cache
+C:\Deveopments\AspDotNet\Tutorial\OnlineMarket\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Deveopments\AspDotNet\Tutorial\OnlineMarket\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.AssemblyInfoInputs.cache
+C:\Deveopments\AspDotNet\Tutorial\OnlineMarket\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.AssemblyInfo.cs
+C:\Deveopments\AspDotNet\Tutorial\OnlineMarket\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.csproj.CoreCompileInputs.cache

@@ -1,0 +1,55 @@
+﻿@using CRUD_OperationsInMVC.Models;
+@model IEnumerable<Member>
+@{
+    ViewBag.Title = "Member Details";
+}
+<h2>Member Details</h2>
+
+<table style="font-family: Arial; border: solid thin black 2px; ">
+    
+    <tr style=" background-color: #008000; padding: 10px; text-align: left; border:solid 2px ">
+
+        <th style="width: 150px; height : 40px; color: greenyellow; font-size: 10pt; text-align: center; ">Member id </th>
+        <th style="width: 200px; height: 40px; color: greenyellow; font-size: 10pt;">Member Name</th>
+        <th style="width: 100px; height: 40px; color: greenyellow; font-size: 10pt;">Gender</th>
+        <th style="width: 200px; height: 40px; color: greenyellow; font-size: 10pt;">City</th>
+        <th style="width: 100px; height: 40px; color: greenyellow; font-size: 10pt;">Salary</th>
+        <th style="width: 100px; height: 40px; color: greenyellow; font-size: 10pt;">Update/Edit</th>
+    </tr>
+
+    @{ foreach (Member mem in @Model)
+        {
+   //         <tr bgcolor="#C0C0C0" width="100%" height= "40px" rowspan=15 padding="10px" border="2px">
+        <tr style=" background-color: #C0C0C0; padding: 10px; height: 30px; text-align: left; border: solid 1px ">
+            <td style="text-align:center; ">
+                <div>@mem.ID </div>
+            </td>
+
+
+            <td>
+                <div>@mem.Name </div>
+            </td>
+
+
+            <td>
+                <div>@mem.Gender</div>
+            </td>
+
+
+            <td>
+                <div>@mem.City</div>
+            </td>
+
+
+            <td>
+                <div>@mem.Salary</div>
+            </td>
+
+            <td>
+                <div><li>@Html.ActionLink("Edit", "Edit", new { id= @mem.ID }, null)</li></div>
+            </td>
+        </tr>
+
+        }
+    }
+</table>
