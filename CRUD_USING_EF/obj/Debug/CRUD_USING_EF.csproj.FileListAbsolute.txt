@@ -80,3 +80,4 @@ C:\Deveopments\AspDotNet\Tutorial\OnlineMarket\CRUD_USING_EF\obj\Debug\CRUD_USIN
 C:\Deveopments\AspDotNet\Tutorial\OnlineMarket\CRUD_USING_EF\obj\Debug\CRUD_USING_EF.csproj.CopyComplete
 C:\Deveopments\AspDotNet\Tutorial\OnlineMarket\CRUD_USING_EF\obj\Debug\CRUD_USING_EF.dll
 C:\Deveopments\AspDotNet\Tutorial\OnlineMarket\CRUD_USING_EF\obj\Debug\CRUD_USING_EF.pdb
+C:\Deveopments\AspDotNet\Tutorial\OnlineMarket\CRUD_USING_EF\obj\Debug\CRUD_USING_EF.csproj.AssemblyReference.cache
