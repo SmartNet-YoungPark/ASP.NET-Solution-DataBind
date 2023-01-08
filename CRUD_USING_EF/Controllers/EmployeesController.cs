@@ -10,7 +10,7 @@ using CRUD_USING_EF;
 
 namespace CRUD_USING_EF.Controllers
 {
-    public class EmployeeController : Controller
+    public class EmployeesController : Controller
     {
         private EmployeeDBEntities2 db = new EmployeeDBEntities2();
         // GET: Employee

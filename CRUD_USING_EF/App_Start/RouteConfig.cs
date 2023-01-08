@@ -17,7 +17,7 @@ namespace CRUD_USING_EF
                 name: "Default",
                 url: "{controller}/{action}/{id}",
           //     defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-               defaults: new { controller = "Employees", action = "Index", id = UrlParameter.Optional }
+               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

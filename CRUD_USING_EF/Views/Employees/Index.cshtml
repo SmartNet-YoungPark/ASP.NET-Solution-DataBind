@@ -1,16 +1,11 @@
 ﻿@model CRUD_USING_EF.Employee
-
 @{
     ViewBag.Title = "Create";
 }
-
-<h2>Create</h2>
-
-
+<h2>Create Member</h2>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
     <div class="form-horizontal">
         <h4>Employee</h4>
         <hr />
@@ -76,3 +71,6 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
