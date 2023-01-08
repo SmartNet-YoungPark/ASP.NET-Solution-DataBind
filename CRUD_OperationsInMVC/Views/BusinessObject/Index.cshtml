@@ -46,7 +46,9 @@
             </td>
 
             <td>
-                <div><li>@Html.ActionLink("Edit", "Edit", new { id= @mem.ID }, null)</li></div>
+                
+                <div><li>@Html.ActionLink("Edit", "Edit", new { id = @mem.ID }, null)</li></div>
+                <div><li>@Html.ActionLink("Delete", "Delete", new { id = @mem.ID }, null)</li></div>
             </td>
         </tr>
 

@@ -25,17 +25,36 @@
         @Html.ActionLink("ASP.NET MVC design pattern - EntityFramework", "Index", "Departments")
     </p>
 
-    <b> Call Controller : </b>
+    <b> Call Controller Flow : Department => Employment => Details </b>
     <pre>
-  
-        public ActionResult Index()
+
+    public class DepartmentsController : Controller
+    {
+         public ActionResult Index()
+            {
+            EmployeeDBEntities dbContext = new EmployeeDBEntities();
+            List &ltDepartment&gt
+            listDepartments = dbContext.Departments.ToList();
+            return View(listDepartments);
+    }
+    ---------------------------
+    public class EmployeesController : Controller
+    {
+    public ActionResult Index(int departmentId)
+         {
+            EmployeeDBEntities dbContext = new EmployeeDBEntities();
+            List &ltEmployee&gt
+            employees = dbContext.Employees.Where(emp => emp.DepartmentId == departmentId).ToList();
+            return View(employees);
+         }
+    public ActionResult Details(int id)
         {
-        EmployeeDBEntities dbContext = new EmployeeDBEntities();
-        List &lt Department &gt listDepartments = dbContext.Departments.ToList();
-        listEmployee = dbContext.Employees.ToList();
-        return View(listDepartments);
+            EmployeeDBEntities dbContext = new EmployeeDBEntities();
+            Employee employee = dbContext.Employees.FirstOrDefault(x => x.EmployeeId == id);
+            return View(employee);
         }
-     </pre>
+     }
+   </pre>
 
     <p>
         @Html.ActionLink("ASP.NET MVC design pattern - EntityFramework, Business object using stored procedure", "/Index", "BusinessObject")
@@ -213,7 +232,7 @@ Begin
 End
 </pre>
     <p>
-        @Html.ActionLink("ASP.NET MVC design pattern - EntityFramework, Business object using stored procedure with GET/POST for insert, UpdateModel/TryUpdateModel Databinding and No Parameter", "/Create", "BusinessObject")
+        @Html.ActionLink("ASP.NET MVC design pattern - EntityFramework, Business object using stored procedure with GET/POST for insert, UpdateModel/TryUpdateModel Databinding and No Parameter For insert", "/Create", "BusinessObject")
     </p>
     <b> Call Controller : </b>
     <pre>
@@ -289,92 +308,7 @@ End
     .... as the same
     </pre>
     <p>
-        @Html.ActionLink("ASP.NET MVC design pattern - EntityFramework, Business object using stored procedure with GET/POST for Update, Parameter", "/Index", "BusinessObject")
+        @Html.ActionLink("ASP.NET MVC design pattern - EntityFramework, Business object using stored procedure with GET/POST for Update/Delete, Parameter", "/Index", "BusinessObject")
     </p>
-    <pre>
-      [HttpGet]
-        public ActionResult Edit(int id)
-        {
-            MemberBusinessLayer memberBusinessLayer = new MemberBusinessLayer();
-            Member member = memberBusinessLayer.GetAllMembers().FirstOrDefault(emp => emp.ID == id);
-            return View(member);
-        }
-        [HttpPost]
-        public ActionResult Edit(Member member)
-        {
-            if (ModelState.IsValid)
-            {
-                MemberBusinessLayer memberBusinessLayer = new MemberBusinessLayer();
-                memberBusinessLayer.UpdateMember(member);
-                return RedirectToAction("/Index");
-            }
-            return View(member);
-        }
-    </pre>
-    <b> Business logic : </b>
-    <pre>
-      public void UpdateMember(Member member)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
-
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand("spUpdatemember", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                SqlParameter paramId = new SqlParameter();
-                paramId.ParameterName = "&#64Id";
-                paramId.Value = member.ID;
-                cmd.Parameters.Add(paramId);
-
-                SqlParameter paramName = new SqlParameter();
-                paramName.ParameterName = "&#64Name";
-                paramName.Value = member.Name;
-                cmd.Parameters.Add(paramName);
-
-                SqlParameter paramGender = new SqlParameter();
-                paramGender.ParameterName = "&#64Gender";
-                paramGender.Value = member.Gender;
-                cmd.Parameters.Add(paramGender);
-
-                SqlParameter paramCity = new SqlParameter();
-                paramCity.ParameterName = "&#64City";
-                paramCity.Value = member.City;
-                cmd.Parameters.Add(paramCity);
-
-                SqlParameter paramSalary = new SqlParameter();
-                paramSalary.ParameterName = "&#64Salary";
-                paramSalary.Value = member.Salary;
-                cmd.Parameters.Add(paramSalary);
-
-                SqlParameter paramDateOfBirth = new SqlParameter();
-                paramDateOfBirth.ParameterName = "&#64DateOfBirth";
-                paramDateOfBirth.Value = member.DateOfBirth;
-                cmd.Parameters.Add(paramDateOfBirth);
-
-                con.Open();
-                cmd.ExecuteNonQuery();
-            }
-        }
-</pre>
-<b> Stored procedure : </b>
-<pre>
-Create procedure [dbo].[spUpdatemember]
-  &#64Id int,
-  &#64Name nvarchar(50),      
-  &#64Gender nvarchar (10),      
-  &#64City nvarchar (50), 
-  &#64Salary decimal(18,2),     
-  &#64DateOfBirth DateTime 
-as      
-Begin      
-  Update member Set
-    Name = &#64Name,
-    Gender = &#64Gender,
-    City = &#64City,
-    Salary = &#64Salary,
-    DateOfBirth = &#64DateOfBirth
-  Where   Id = &#64Id
-End
-</pre>
+  
 </div>

@@ -102,7 +102,27 @@ namespace CRUD_OperationsInMVC.Controllers
             }
             return View(member);
         }
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            MemberBusinessLayer memberBusinessLayer = new MemberBusinessLayer();
+            Member member = memberBusinessLayer.GetAllMembers().FirstOrDefault(emp => emp.ID == id);
+            return View(member);
+        }
+        [HttpPost]
+        public ActionResult Delete(Member member)
+        {
+            if (ModelState.IsValid)
+            {
 
+                MemberBusinessLayer memberBusinessLayer = new MemberBusinessLayer();
+                memberBusinessLayer.DeleteMember(member);
+                return RedirectToAction("/Index");
+            }
+
+                return View(member);
+            }
+      
         //if (ModelState.IsValid)
         //{
         //    foreach (string key in formCollection.AllKeys)
