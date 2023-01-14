@@ -14,7 +14,7 @@
         <th style="width: 100px; height: 40px; color: greenyellow; font-size: 10pt;">Gender</th>
         <th style="width: 200px; height: 40px; color: greenyellow; font-size: 10pt;">City</th>
         <th style="width: 100px; height: 40px; color: greenyellow; font-size: 10pt;">Salary</th>
-        <th style="width: 100px; height: 40px; color: greenyellow; font-size: 10pt;">Update/Edit</th>
+        <th style="width: 400px; height: 40px; color: greenyellow; font-size: 10pt;">Update/Edit</th>
     </tr>
 
     @{ foreach (Member mem in @Model)
@@ -46,8 +46,12 @@
             </td>
 
             <td>
-                
+
                 <div><li>@Html.ActionLink("Edit", "Edit", new { id = @mem.ID }, null)</li></div>
+                <div><li>@Html.ActionLink("Edit_NoProperty", "Edit_NoProperty", new { id = @mem.ID }, null)</li></div>
+                <div><li>@Html.ActionLink("Edit_ExcludeProperty", "Edit_ExcludeProperty", new { id = @mem.ID }, null)</li></div>
+                <div><li>@Html.ActionLink("Edit_No Property Interface", "Edit_NoInterfaceProperty", new { id = @mem.ID }, null)</li></div>
+
                 <div><li>@Html.ActionLink("Delete", "Delete", new { id = @mem.ID }, null)</li></div>
             </td>
         </tr>

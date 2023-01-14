@@ -1,4 +1,4 @@
-﻿@model CRUD_USING_EF.Employee
+﻿@model CRUD_USING_EF.Models.Employee
 
 @{
     ViewBag.Title = "Details";
@@ -6,53 +6,114 @@
 
 <h2>Details</h2>
 
-<div>
-    <h4>Employee</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
+    <div class="form-horizontal">
+        <h4>Employee</h4>
 
-        <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
+        <div class="leftDiv">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.EmployeeId)
 
-        <dt>
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-8">
 
-        <dd>
-            @Html.DisplayFor(model => model.City)
-        </dd>
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @readonly = "readonly" } })
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Salary)
-        </dt>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @readonly = "readonly" } })
 
-        <dd>
-            @Html.DisplayFor(model => model.Salary)
-        </dd>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Department.Name)
-        </dt>
+            <div class="form-group">
+                @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @readonly = "readonly" } })
 
-        <dd>
-            @Html.DisplayFor(model => model.Department.Name)
-        </dd>
+                </div>
+            </div>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.EmployeeId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Salary, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @readonly = "readonly" } })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DepartmentId, "DepartmentId", htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.DepartmentId, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @readonly = "readonly" } })
+
+                </div>
+            </div>
+            <div> 
+               <p> @Html.ActionLink("Edit", "/Edit", new { id = Model.EmployeeId }, null) </p>
+            </div>
+
+            <div> 
+                <p> @Html.ActionLink("Back to List", "Index") </p>
+            </div>
+
+        </div>
+        <div class="rightDiv">
+         <pre>
+             <b> Call Controller : </b>
+        // GET: Employee/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Employee employee = db.Employees.Find(id);
+            if (employee == null)
+            {
+                return HttpNotFound();
+            }
+            return View(employee);
+        }
+
+        </pre>
+
+        </div>
+
+  </div> 
+    
+}
+
+
+   
+<style>
+
+    .leftDiv {
+        margin-left: 0px;
+        background-color: #efefef;
+        color: #000;
+        height: 500px;
+        width: 400PX;
+        float: left;
+        padding: 10px;
+    }
+
+    .rightDiv {
+        background-color: #efefef;
+        color: #000;
+        height: 600px;
+        width: 700PX;
+        float: right;
+        padding: 10px;
+    }
+</style>
+

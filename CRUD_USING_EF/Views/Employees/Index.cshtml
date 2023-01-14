@@ -1,76 +1,92 @@
-﻿@model CRUD_USING_EF.Employee
+﻿@model IEnumerable<CRUD_USING_EF.Models.Employee>
+
 @{
-    ViewBag.Title = "Create";
+    ViewData["Title"] = "Employees";
 }
-<h2>Create Member</h2>
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <div class="form-horizontal">
-        <h4>Employee</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Gender", new List<SelectListItem>
-                {
-                new SelectListItem { Text = "Male", Value="Male" },
-                new SelectListItem { Text = "Female", Value="Female" }
-                }, "Select Gender", new { @class = "form-control" })
+<h2>Employees</h2>
+<pre>
+    <b> Call Controller : </b>
+      private EmployeeDBEntities db = new EmployeeDBEntities();
+        // GET: Employee
+        public ActionResult Index()
+        {   //Query to get dropdown list
+            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name");
+            //Get all employees 
+            var employees = db.Employees.Include(e => e.Department);
+            return View(employees.ToList());
+        }
+</pre>
+<p>
+    <div>@Html.ActionLink("Create", "/Create") </div>
+    <div class="form-group">
+     
+        <div class="col-md-10">
+            @Html.DropDownList("DepartmentId",null, "Select Department", htmlAttributes: new { @class = "form-control" , onchange = "document.location.href = '/Employees/Departments?id=' + this.options[this.selectedIndex].value;" } )
 
-
-                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Salary, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DepartmentId, "DepartmentId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("DepartmentId", null, "Select Department", htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
         </div>
     </div>
-}
+    <script type="text/javascript">
+        function OnSelectedIndexChanged() {
+            @Html.ActionLink("Details", "/Details")
+        }
+    </script>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Gender)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Salary)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.City)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DepartmentId)
+                </th>
+                <th>
+                    Edit/Details/Delete
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmployeeId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gender)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Salary)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepartmentId)
+                    </td>
+                    <td>
+                        <div><li>@Html.ActionLink("Edit", "/Edit", new { id = item.EmployeeId }, null) </li></div>
+                        <div><li>@Html.ActionLink("Details", "/Details", new { id = item.EmployeeId }, null) </li></div>
+                        <div><li>@Html.ActionLink("Delete", "/Delete", new { id = item.EmployeeId }, null) </li></div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

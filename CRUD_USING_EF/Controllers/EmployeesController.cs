@@ -7,15 +7,18 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CRUD_USING_EF;
+using CRUD_USING_EF.Models;
 
 namespace CRUD_USING_EF.Controllers
 {
     public class EmployeesController : Controller
     {
-        private EmployeeDBEntities2 db = new EmployeeDBEntities2();
+        private EmployeeDBEntities db = new EmployeeDBEntities();
         // GET: Employee
         public ActionResult Index()
-        {
+        {   //Query to get dropdown list
+            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name");
+            //Get all employees 
             var employees = db.Employees.Include(e => e.Department);
             return View(employees.ToList());
         }
@@ -34,6 +37,14 @@ namespace CRUD_USING_EF.Controllers
             return View(employee);
         }
 
+        public ActionResult Departments(int?id)
+        {
+            List<Employee> employees = db.Employees.Where(emp => emp.DepartmentId == id).ToList();
+           
+            return View(employees.ToList());
+        }
+      
+
         // GET: Employees/Create
         public ActionResult Create()
         {
@@ -42,8 +53,7 @@ namespace CRUD_USING_EF.Controllers
         }
 
         // POST: Employees/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+  
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "EmployeeId,Name,Gender,City,Salary,DepartmentId")] Employee employee)
@@ -55,8 +65,7 @@ namespace CRUD_USING_EF.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", employee.DepartmentId);
-            return View(employee);
+                return View(employee);
         }
 
         // GET: Employees/Edit/5
@@ -71,14 +80,13 @@ namespace CRUD_USING_EF.Controllers
             {
                 return HttpNotFound();
             }
+          //Query to get dropdown list with INDEX
             ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", employee.DepartmentId);
             return View(employee);
         }
 
         // POST: Employees/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+           [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "EmployeeId,Name,Gender,City,Salary,DepartmentId")] Employee employee)
         {

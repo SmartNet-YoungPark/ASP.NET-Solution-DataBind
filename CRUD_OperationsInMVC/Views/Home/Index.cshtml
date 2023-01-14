@@ -33,8 +33,7 @@
          public ActionResult Index()
             {
             EmployeeDBEntities dbContext = new EmployeeDBEntities();
-            List &ltDepartment&gt
-            listDepartments = dbContext.Departments.ToList();
+            List &ltDepartment&gt listDepartments = dbContext.Departments.ToList();
             return View(listDepartments);
     }
     ---------------------------
@@ -128,7 +127,7 @@
     End
     </pre>
     <p>
-        @Html.ActionLink("ASP.NET MVC design pattern - EntityFramework, Business object using stored procedure with Form GET/POST for insert, Form Binding", "/CreateForm", "BusinessObject")
+        @Html.ActionLink("ASP.NET MVC design pattern - EntityFramework, Business object using stored procedure with Form GET/POST for insert, Form Collection", "/CreateForm", "BusinessObject")
     </p>
     <b> Call Controller : </b>
     <pre>

@@ -17,7 +17,7 @@ namespace CRUD_OperationsInMVC.Controllers
         {
             EmployeeDBEntities dbContext = new EmployeeDBEntities();
             List<Employee> employees = dbContext.Employees.Where(emp => emp.DepartmentId == departmentId).ToList();
-            return View(employees);
+             return View(employees);
         }
 
 

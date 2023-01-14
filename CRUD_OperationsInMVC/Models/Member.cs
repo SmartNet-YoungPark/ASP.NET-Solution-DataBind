@@ -2,7 +2,16 @@
 
 namespace CRUD_OperationsInMVC.Models
 {
-    public class Member
+    //No Name Interface
+    internal interface IMember
+    {
+        int ID { get; set; }
+        string Gender { get; set; }
+        string City { get; set; }
+        decimal Salary { get; set; }
+        DateTime DateOfBirth { get; set; }
+    }
+    public class Member : IMember
     {
         public int ID { get; set; }
         public string Name { get; set; }

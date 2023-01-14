@@ -213,6 +213,9 @@
     <None Include="Views\BusinessObject\CreateForm.cshtml" />
     <Content Include="Views\BusinessObject\Edit.cshtml" />
     <Content Include="Views\BusinessObject\Delete.cshtml" />
+    <Content Include="Views\BusinessObject\Edit_NoProperty.cshtml" />
+    <Content Include="Views\BusinessObject\Edit_ExcludeProperty.cshtml" />
+    <Content Include="Views\BusinessObject\Edit_NoInterfaceProperty.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
